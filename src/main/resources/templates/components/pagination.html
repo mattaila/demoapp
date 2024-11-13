@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div th:fragment="pagination(pageEntity, paging_action_url)" th:remove="tag">
+        <!-- 現在のページ/総ページ数の表示 -->
+
+
+        <nav aria-label="Page navigation example">
+            <span th:text="#{text.common.paging(
+                ${pageEntity.getNumber() + 1},
+                ${pageEntity.getTotalPages()}
+             )} " class="pagination justify-content-center">
+            </span>
+
+            <ul class="pagination justify-content-center">
+                <!-- 最初の表示 -->
+                <li class="page-item">
+                    <a class="page-link" th:unless="${pageEntity.isFirst()}" th:href="@{${paging_action_url}(page = 0)}"
+                        th:text="#{text.common.first}"></a>
+                </li>
+
+                <!-- 前の表示 -->
+                <li class="page-item">
+                    <a class="page-link disabled" th:if="${pageEntity.isFirst()}" th:text="#{text.common.previous}"></a>
+                    <a class="page-link" 
+                        th:unless="${pageEntity.isFirst()}" 
+                        th:href="@{${paging_action_url}(page = ${pageEntity.getNumber()}-1)}" th:text="#{text.common.previous}"></a>
+                </li>
+                
+                <li>&nbsp;</li>
+                <li th:each="i : ${#numbers.sequence(
+                                                pageEntity.getNumber()-2 < 0 ? 0 : pageEntity.getNumber() -2,
+                                                pageEntity.getNumber()+2 > pageEntity.getTotalPages()-1 ? pageEntity.getTotalPages()-1 : pageEntity.getNumber()+2)}">
+                                                
+                    <a class="page-link disabled" th:if="${i == pageEntity.getNumber()}" th:text="${i + 1}"></a>
+                    <a class="page-link" th:unless="${i == pageEntity.getNumber()}" th:href="@{${paging_action_url}(page =${i})}" th:text="${i + 1}"></a>
+                </li>
+
+                <li>&nbsp;</li>
+
+                <!-- 次の表示 -->
+                <li class="page-item">
+                    <a class="page-link disabled" th:if="${pageEntity.isLast()}" th:text="#{text.common.next}"></a>
+                    <a class="page-link" 
+                        th:unless="${pageEntity.isLast()}" 
+                        th:href="@{${paging_action_url}(page = ${pageEntity.getNumber()}+1)}" th:text="#{text.common.next}"></a>
+                </li>
+
+                <!-- 最後の表示 -->
+                <li class="page-item">
+                    <a class="page-link" th:unless="${pageEntity.isLast()}" th:href="@{${paging_action_url}(page = ${pageEntity.getTotalPages}-1)}" 
+                        th:text="#{text.common.last}"></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</body>
+</html>

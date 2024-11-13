@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!-- JDBCドライバまでのパス -->
+    <classPathEntry location="C:/Users/twdoc/.m2/repository/org/postgresql/postgresql/42.7.3/postgresql-42.7.3.jar" /> 
+    <context id="local">
+        <!-- 接続先DB情報 -->
+        <jdbcConnection driverClass="org.postgresql.Driver"
+                        connectionURL="jdbc:postgresql://localhost:5432/testdb" userId="postgres"
+                        password="admin" />
+        <!-- Model(Entity)作成先 -->
+        <javaModelGenerator targetPackage="com.example.demo.dto.entity"
+                        targetProject="C:/Users/twdoc/Documents/" />
+        <!-- Mapper.xml作成先 -->
+        <sqlMapGenerator targetPackage="mapper"
+                        targetProject="C:/Users/twdoc/Documents/" />
+        <!-- Mapper.java作成先 -->
+        <javaClientGenerator targetPackage="com.example.demo.repository"
+                        targetProject="C:/Users/twdoc/Documents/"
+                        type="XMLMAPPER" />
+        <!-- 生成対象テーブル -->
+        <table tableName="account" enableInsert="true"
+            enableSelectByPrimaryKey="true"
+            enableSelectByExample="true" enableUpdateByPrimaryKey="true"
+            enableDeleteByPrimaryKey="true" enableDeleteByExample="true"
+            enableCountByExample="true" enableUpdateByExample="true"
+            selectByPrimaryKeyQueryId="false" selectByExampleQueryId="true">
+            <generatedKey column="user_id" sqlStatement="JDBC" />
+            
+        </table>
+
+        <table tableName="item" enableInsert="true"
+            enableSelectByPrimaryKey="true"
+            enableSelectByExample="true" enableUpdateByPrimaryKey="true"
+            enableDeleteByPrimaryKey="true" enableDeleteByExample="true"
+            enableCountByExample="true" enableUpdateByExample="true"
+            selectByPrimaryKeyQueryId="false" selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="JDBC" />
+            
+        </table>
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,56 @@
+spring:
+    application:
+        name: demo
+    servlet:
+        multipart:
+            enabled: true
+            max-file-size: 1MB
+
+    messages:
+        basename: messages/message,messages/item,messages/common
+
+    datasource:
+        url: jdbc:postgresql://localhost:5432/testdb
+        driver-class-name: org.postgresql.Driver
+        username: postgres
+        password: admin
+
+    data:
+        web:
+            pageable:
+                default-page-size: 10
+    sql:
+        init:
+            mode: always
+            encoding: UTF-8 
+            schema-locations: classpath:schema.sql 
+            data-locations: classpath:data.sql
+
+    security:
+        oauth2:
+            client:
+                registration:
+                    keycloak:
+                        client-id: myclient
+                        client-secret: lkgibtvsLEaG83bUmP4JmscOsdXhxG0u
+                        provider: keycloak
+                        scope: openid
+                        authorization-grant-type: authorization_code
+                        redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+                provider:
+                    keycloak:
+                        authorization-uri: http://localhost:8081/realms/demo/protocol/openid-connect/auth
+                        token-uri: http://localhost:8081/realms/demo/protocol/openid-connect/token
+                        user-info-uri: http://localhost:8081/realms/demo/protocol/openid-connect/userinfo
+                        jwk-set-uri: http://localhost:8081/realms/demo/protocol/openid-connect/certs
+                        issuer-uri: http://localhost:8081/realms/demo
+                        user-name-attribute: preferred_username
+
+mybatis:
+    mapper-locations: classpath*:/mapper/*.xml
+
+demo:
+    offset-limit: 30
+
+
+
