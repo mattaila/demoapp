@@ -3,9 +3,28 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       th:replace="~{components/template :: layout(~{::title},~{::body/content()})}">
 <head>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
 <title>ダッシュボード</title>
 </head>
 <body>
+      <select name="pets" id="pet-select" onchange="changePlaceHolder(this)" data-target="code1">
+            <option value="" data-value="a">--Please choose an option--</option>
+            <option value="dog" data-value="b">Dog</option>
+            <option value="cat" data-value="c">Cat</option>
+            <option value="hamster" data-value="d">Hamster</option>
+            <option value="parrot" data-value="e">Parrot</option>
+            <option value="spider" data-value="f">Spider</option>
+            <option value="goldfish" data-value="g">Goldfish</option>
+      </select>
+      <input type="text" id="code1">
 
+      <script>
+            function changePlaceHolder(selectedObj) {
+                  var target = selectedObj.getAttribute('data-target');
+                  var setValue = selectedObj.options[selectedObj.selectedIndex].getAttribute('data-value');
+                  document.getElementById(target).placeholder = setValue;
+}
+      </script>
 </body>
+
 </html>
